@@ -7,13 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,14 +49,14 @@ public class ApprenticeController {
         }
     }
 
-    @PatchMapping(path = "/apprentices/{hash}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    String patchChallenge(@PathVariable String hash, HttpServletResponse res) {
+    @PatchMapping(path = "/apprentices/{hash}", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    String patchChallenge(Guest guests, @PathVariable String hash, HttpServletResponse res) {
         try {
             Apprentice bernard = new Apprentice("Bernard");
             apprenticeNames.put("123", bernard);
             Apprentice apprentice = apprenticeNames.get(hash);
-            System.out.println("body");
-            return apprentice.getName();
+            String reply = String.format("Hay %s, what an interesting selection of guests! I wonder what %s and %s would make of each other.", apprentice.getName(), guests.getGuests()[0], guests.getGuests()[1]);
+            return reply;
         } catch(Error err) {
             res.setStatus(404);
             return "I can't find you in my little server brain 😬. Try again, or start again.";
