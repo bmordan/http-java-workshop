@@ -2,6 +2,7 @@ package org.whitehat.httpworkshop;
 
 public class Apprentice {
     private String name;
+    private String[] guests;
 
     public Apprentice() {
     }
@@ -16,5 +17,13 @@ public class Apprentice {
 
     public String getName() {
         return this.name;
+    }
+
+    public void setGuests(String[] guests) {
+        this.guests = guests;
+    }
+
+    public String[] getGuests() {
+        return this.guests;
     }
 }
