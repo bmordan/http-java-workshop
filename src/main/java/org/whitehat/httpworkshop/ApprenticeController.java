@@ -56,8 +56,6 @@ public class ApprenticeController {
     @PatchMapping(path = "/apprentices/{hash}", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     String patchChallenge(Guest guests, @PathVariable String hash, HttpServletResponse res) {
         try {
-            Apprentice bernard = new Apprentice("Bernard");
-            apprenticesHashMap.put("123", bernard);
             Apprentice apprentice = apprenticesHashMap.get(hash);
             apprentice.setGuests(guests.getGuests());
             String reply = String.format("Hay %s, what an interesting selection of guests!\nI wonder what %s and %s would make of each other! What would you like everyone to eat?\n\nCan you send your ideal menu as a GET request with a set of query parameters to '/apprentices/{Your-Id}/menus'.\nThe query needs to include 'starter', 'main' and 'dessert'. Remember you will have to URIencode the values of your dishes.", apprentice.getName(), apprentice.getGuests()[0], apprentice.getGuests()[1]);
